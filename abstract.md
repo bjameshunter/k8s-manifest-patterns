@@ -1,0 +1,5 @@
+Staring at lots of Kubernetes YAML is hard. Replicating the same resources across an arbitrary number of clusters with the required differences for scale and environment presents some tradeoffs. Helm is nice because all the values are right there in your values file or files. But knowing precisely what has been deployed on your cluster can be ambiguous. Furthermore, it may be tempting to violate DRY principles in different environments.
+
+This presentation will tour three tools that attempt to maintain inventory, consolidate YAML, and to various extents provide a framework for creating reusable collections of Kubernetes resources. FluxCD and ArgoCD compile, sync, and apply manifests found in a git repo - a technique referred to as GitOps. Kpt, while compatible with GitOps, is more geared toward packaging and inline modifications via manifest annotations and functions stored in Docker images. 
+
+These benefits come at the cost of considerable cognitive overhead and a learning curve that one may reasonably argue is not worth the trouble. I have found them valuable on a couple projects.
