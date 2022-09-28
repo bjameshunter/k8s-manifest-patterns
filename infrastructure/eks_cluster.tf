@@ -36,22 +36,22 @@ vpc_config {
   tags = var.tags
 }
  
-resource "null_resource" "cluster" {
-  triggers = {
-    git_ops_trigger = "${var.name} ${var.gitops_repo} ${var.gitops_branch}"
-  }
-
-  provisioner "local-exec" {
-    # Bootstrap script called with private_ip of each node in the cluster
-    command = join(" ", [
-        "./${path.module}/scripts/bootstrap-cluster.sh", 
-        var.name,
-        var.gitops_repo,
-        var.gitops_branch
-    ])
-  }
-  depends_on = [aws_eks_cluster.eks]
-}
+# resource "null_resource" "cluster" {
+#   triggers = {
+#     git_ops_trigger = "${var.name} ${var.gitops_repo} ${var.gitops_branch}"
+#   }
+#
+#   provisioner "local-exec" {
+#     # Bootstrap script called with private_ip of each node in the cluster
+#     command = join(" ", [
+#         "./${path.module}/scripts/bootstrap-cluster.sh", 
+#         var.name,
+#         var.gitops_repo,
+#         var.gitops_branch
+#     ])
+#   }
+#   depends_on = [aws_eks_cluster.eks]
+# }
 
 resource "null_resource" "subnets" {
   for_each = toset([for s in local.private_subnets: s.id])
