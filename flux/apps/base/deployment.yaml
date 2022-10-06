@@ -6,8 +6,8 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: 
-      version: '4.0.x'
+      chart: podinfo
+      version: '6.2.1'
       sourceRef:
         kind: GitRepository
         name: podinfo
