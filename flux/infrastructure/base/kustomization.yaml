@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - issuer.yaml
   - repo.yaml
+  - external-dns.yaml
 
