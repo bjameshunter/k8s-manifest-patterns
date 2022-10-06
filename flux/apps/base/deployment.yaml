@@ -9,9 +9,8 @@ spec:
       chart: 
       version: '4.0.x'
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: podinfo
-        namespace: flux-system
       interval: 1m
   values:
     replicaCount: 2
