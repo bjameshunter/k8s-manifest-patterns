@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: apps
+  name: prod-apps
   namespace: flux-system
 spec:
   interval: 5m0s # detect drift and undo kubectl edits every 5 minutes
@@ -10,9 +10,9 @@ spec:
   retryInterval: 2m0s # retry every two minutes on apply or waiting failures
   prune: true
   force: true
-  targetNamespace: prod-flux # set the namespace for all resources
+  # targetNamespace: prod-flux # set the namespace for all resources
   dependsOn:
-    - name: infrastructure
+    - name: prod-infrastructure
   sourceRef:
     kind: GitRepository
     name: flux-system
