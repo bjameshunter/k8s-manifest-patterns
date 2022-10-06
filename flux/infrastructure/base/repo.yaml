@@ -8,8 +8,3 @@ spec:
   url: https://github.com/stefanprodan/podinfo
   ref:
     branch: master
-  ignore: |
-    # exclude all
-    /*
-    # include charts directory
-    !/charts/ 
