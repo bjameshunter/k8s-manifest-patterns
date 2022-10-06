@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: self-signed
+  name: nginx
+  namespace: kpt-dev
+spec:
+  rules:
+  - host: az-bjh.biz
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - --domain-filter=web-dev.kpt.az-bjh.biz # kpt-set: --domain-filter=${app-name}-${environment}.kpt.az-bjh.biz
+    secretName: --domain-filter=web-dev-cert # kpt-set: --domain-filter=${app-name}-${environment}-cert

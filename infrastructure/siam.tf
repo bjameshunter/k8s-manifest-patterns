@@ -13,11 +13,12 @@ resource "aws_iam_openid_connect_provider" "eks" {
 }
 
 resource "aws_iam_role" "external_dns_siam" {
-  name = "eks-${var.name}-external-dns"
+  for_each = toset(["kpt-dev", "kpt-prod", "argo-dev", "argo-prod", "flux-dev", "flux-prod"])
+  name = "eks-${var.name}-${each.value}-external-dns"
 
   assume_role_policy = templatefile("${path.module}/policies/oidc-eks.json", {
         provider = replace(aws_eks_cluster.eks.identity.0.oidc.0.issuer, "https://", ""),
-        namespace = "external-dns",
+        namespace = each.value,
         serviceaccount = "external-dns",
         account = local.account_id
     }
@@ -26,15 +27,21 @@ resource "aws_iam_role" "external_dns_siam" {
 }
 
 resource "aws_iam_policy" "external_dns" {
-  name        = "eks-${var.name}-external-dns"
+  for_each = toset(["kpt-dev", "kpt-prod", "argo-dev", "argo-prod", "flux-dev", "flux-prod"])
+
+  name        = "${var.name}-${each.value}-ext-dns"
   path        = "/"
-  description = "Allow K8s to manage records sets for Zimulator"
-  policy      = file("${path.module}/policies/external-dns.json")
+  description = "Allows pod to edit dns"
+  policy      = templatefile("${path.module}/policies/external-dns.json", {
+    zone = "Z023449622XOQW27RAVPQ"
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "external_dns" {
-  policy_arn = aws_iam_policy.external_dns.arn
-  role       = aws_iam_role.external_dns_siam.name
+  for_each = toset(["kpt-dev", "kpt-prod", "argo-dev", "argo-prod", "flux-dev", "flux-prod"])
+
+  policy_arn = aws_iam_policy.external_dns[each.value].arn
+  role       = aws_iam_role.external_dns_siam[each.value].name
 }
 
 resource "aws_iam_role" "cert_manager_siam" {
@@ -54,7 +61,7 @@ resource "aws_iam_role" "cert_manager_siam" {
 resource "aws_iam_policy" "cert_manager" {
   name        = "eks-${var.name}-cert-manager"
   path        = "/"
-  description = "Allow K8s to manage records sets for Zimulator for use with cert-manager"
+  description = "Allow K8s to manage records sets for use with cert-manager"
   policy      = file("${path.module}/policies/cert-manager.json")
 }
 

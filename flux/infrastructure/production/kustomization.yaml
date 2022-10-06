@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# resources: 
+#   - ../base/
+# patchesStrategicMerge: 
+#   - images.yaml
+# patches:
+# - target:
+#     version: v2beta1
+#     group: helm.toolkit.fluxcd.io
+#     kind: HelmRelease
+#     name: "document"
+#   patch: |-
+#     - op: add
+#       path: /spec/values/serviceAccount/annotations
+#       value: 
+#         azure.workload.identity/client-id: "c6072d74-a003-44e4-8b43-cd26399c1056"
+#     - op: add
+#       path: /spec/values/serviceAccount/labels
+#       value: 
+#         azure.workload.identity/use: "true"

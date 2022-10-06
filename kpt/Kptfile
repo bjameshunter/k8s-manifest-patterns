@@ -1,0 +1,27 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: kpt
+  annotations:
+    config.kubernetes.io/local-config: "true"
+info:
+  description: doing the kpt
+  site: https://github.com/bjameshunter/k8s-manifest-patterns/kpt
+  emails:
+    - bjameshunter@gmail.com
+  license: Apache-2.0
+  keywords:
+    - engineering-days
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-annotations:v0.1.4
+      configMap:
+        kubernetes.io/ingress.class: nginx
+      selectors:
+        - kind: Ingress
+          apiVersion: networking.k8s.io/v1
+  validators:
+    - image: gcr.io/kpt-fn/kubeval:v0.3
+      configMap:
+        ignore_missing_schemas: "true"
+        strict: "true"
