@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: dev-kpt # kpt-set: ${environment}-${tech}
+  name: dev-kpt # kpt-set: ${environment}-kpt

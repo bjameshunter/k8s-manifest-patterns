@@ -24,7 +24,7 @@ variable "ec2_node_group_config" {
   description = "map of desired EC2 config for EKS node_group"
   default     = {
     desired_size = 2
-    max_size     = 2
+    max_size     = 4
     min_size     = 1
   }
 }

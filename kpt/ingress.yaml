@@ -4,10 +4,10 @@ metadata:
   annotations:
     cert-manager.io/issuer: selfsigned
   name: nginx
-  namespace: dev-kpt # kpt-set: ${environment}-${tech}
+  namespace: dev-kpt # kpt-set: ${environment}-kpt
 spec:
   rules:
-  - host: dev-kpt.largelyconjecture.com # kpt-set: ${environment}-${tech}.largelyconjecture.com
+  - host: dev-kpt.largelyconjecture.com # kpt-set: ${environment}-kpt.largelyconjecture.com
     http:
       paths:
       - pathType: Prefix
@@ -19,5 +19,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - kpt-dev.largelyconjecture.com # kpt-set: ${tech}-${environment}.largelyconjecture.com
+    - kpt-dev.largelyconjecture.com # kpt-set: kpt-${environment}.largelyconjecture.com
     secretName: cert-secret

@@ -1,3 +1,7 @@
+locals {
+  envs = ["dev-kpt", "prod-kpt", "dev-argo", "prod-argo", "dev-flux", "prod-flux"]
+}
+
 data "external" "thumbprint" {
   program = ["${path.module}/thumbprint.sh", data.aws_region.current.name]
 }
@@ -13,7 +17,7 @@ resource "aws_iam_openid_connect_provider" "eks" {
 }
 
 resource "aws_iam_role" "external_dns_siam" {
-  for_each = toset(["kpt-dev", "kpt-prod", "argo-dev", "argo-prod", "flux-dev", "flux-prod"])
+  for_each = toset(local.envs)
   name = "eks-${var.name}-${each.value}-external-dns"
 
   assume_role_policy = templatefile("${path.module}/policies/oidc-eks.json", {
@@ -27,7 +31,7 @@ resource "aws_iam_role" "external_dns_siam" {
 }
 
 resource "aws_iam_policy" "external_dns" {
-  for_each = toset(["kpt-dev", "kpt-prod", "argo-dev", "argo-prod", "flux-dev", "flux-prod"])
+  for_each = toset(local.envs)
 
   name        = "${var.name}-${each.value}-ext-dns"
   path        = "/"
@@ -38,7 +42,7 @@ resource "aws_iam_policy" "external_dns" {
 }
 
 resource "aws_iam_role_policy_attachment" "external_dns" {
-  for_each = toset(["kpt-dev", "kpt-prod", "argo-dev", "argo-prod", "flux-dev", "flux-prod"])
+  for_each = toset(local.envs)
 
   policy_arn = aws_iam_policy.external_dns[each.value].arn
   role       = aws_iam_role.external_dns_siam[each.value].name

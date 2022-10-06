@@ -6,3 +6,4 @@ resources:
   - ../base/
 patchesStrategicMerge: 
   - external-dns.yaml
+  - sa.yaml
