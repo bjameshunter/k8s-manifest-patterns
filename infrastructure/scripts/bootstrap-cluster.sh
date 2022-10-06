@@ -19,7 +19,7 @@ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}
 
 # flux
 # makes a lot of required CRDs, deployments, etc for Flux
-kubectl apply -k "../../flux/clusters/"
+kubectl apply -k "../flux/clusters/base"
 
 # point flux at our K8s repo and branch, define how often it checks
 # for new commit, etc.
