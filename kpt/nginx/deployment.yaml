@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   name: web-deployment # kpt-set: ${app-name}-deployment
   labels:
-    app: web # kpt-set: ${app-name}
-  namespace: kpt-dev
+    app: dev-kpt # kpt-set: ${environment}-${tech}
+  namespace: dev-kpt
 spec:
   replicas: 2 # kpt-set: ${nginx-replicas}
   selector:

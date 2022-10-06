@@ -15,3 +15,11 @@ patches:
     - op: add
       path: /spec/chart/spec/sourceRef/namespace
       value: prod-flux
+    - op: add
+      path: /spec/values/ingress/hosts
+      value: 
+      - prod-flux.largelyconjecture.com
+    - op: add
+      path: /spec/values/certificate/dnsNames
+      value: 
+      - prod-flux.largelyconjecture.com

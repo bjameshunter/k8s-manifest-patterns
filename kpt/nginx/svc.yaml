@@ -4,7 +4,7 @@ metadata:
   name: web-svc # kpt-set: ${app-name}-svc
   labels:
     app: web # kpt-set: ${app-name}
-  namespace: kpt-dev
+  namespace: dev-kpt
 spec:
   type: LoadBalancer
   selector:
