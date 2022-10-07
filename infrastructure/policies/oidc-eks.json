@@ -9,6 +9,7 @@
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
+          "${provider}:aud": "sts.amazonaws.com",
           "${provider}:sub": "system:serviceaccount:${namespace}:${serviceaccount}"
         }
       }

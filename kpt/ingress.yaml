@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/issuer: selfsigned
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
   name: nginx
   namespace: dev-kpt # kpt-set: ${environment}-kpt
 spec:
@@ -14,7 +18,7 @@ spec:
         path: /
         backend:
           service:
-            name: nginx
+            name: web-svc # kpt-set: ${app-name}-svc
             port:
               number: 80
   tls:

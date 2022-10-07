@@ -1,10 +1,26 @@
 #!/bin/bash
 
 GIT_REPO=https://github.com/bjameshunter/k8s-manifest-patterns.git
+ACCOUNT_ID=$(aws sts get-caller-identity | jq -r .Account)
 
 aws eks update-kubeconfig --name $1
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/aws/deploy.yaml
+cat >scripts/aws-load-balancer-controller-service-account.yaml <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/name: aws-load-balancer-controller
+  name: aws-load-balancer-controller
+  namespace: kube-system
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::${ACCOUNT_ID}:role/eks-$1-ingress
+EOF
+
+kubectl apply -f scripts/aws-ingress-controller.yaml
+kubectl apply -f scripts/aws-load-balancer-controller-service-account.yaml
+kubectl apply -f scripts/v2_4_4_ingclass.yaml
 
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
 

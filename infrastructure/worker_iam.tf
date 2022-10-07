@@ -24,6 +24,11 @@ resource "aws_iam_role_policy_attachment" "worker_role_basic" {
   role       = aws_iam_role.worker.name
 }
 
+resource "aws_iam_role_policy_attachment" "worker_role_elb" {
+  policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
+  role       = aws_iam_role.worker.name
+}
+
 resource "aws_iam_role_policy_attachment" "worker_role_cni" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.worker.name
@@ -31,11 +36,6 @@ resource "aws_iam_role_policy_attachment" "worker_role_cni" {
 
 resource "aws_iam_role_policy_attachment" "worker_role_ec2" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.worker.name
-}
-
-resource "aws_iam_role_policy_attachment" "worker_role_ssm" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.worker.name
 }
 

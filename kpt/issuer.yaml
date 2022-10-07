@@ -2,5 +2,6 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: selfsigned
+  namespace: dev-kpt # kpt-set: ${environment}-kpt
 spec:
   selfSigned: {}

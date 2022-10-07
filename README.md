@@ -18,6 +18,14 @@
 - Conditional or global application of shared YAML snippets
 - Insertion of YAML into a key or a list index
 
+# What is lame about normal CI/CD?
+
+Installing tools - helm and kubectl
+Configuring permissions for each stage of pipeline to talk to its cluster
+Configuring access to cloud platform
+Security considerations of lots of certs or whatever floating around there
+There is no visibility into the deployment without sending info back to CI/CD tool
+
 # What Our Deployments Will Do 
 
 1. Namespace `<env>-<tool>`
@@ -40,4 +48,6 @@ Maybe:
 # Final Observations
 
 1. KPT has nice built in validator feature that would have saved me time before commits pushing to GitOps repo. I used a pre-commit hook that just made sure it made valid YAML.
+
+
 
