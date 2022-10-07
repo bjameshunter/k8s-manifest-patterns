@@ -24,9 +24,9 @@ patches:
       path: /spec/values/certificate/dnsNames
       value: 
       - prod-flux.largelyconjecture.com
-    - op: add
-      path: /spec/values/ingress/tls
-      value:
-      - secretName: podinfo
-        hosts: 
-        - prod-flux.largelyconjecture.com
+    # - op: add
+    #   path: /spec/values/ingress/tls
+    #   value:
+    #   - secretName: podinfo
+    #     hosts: 
+    #     - prod-flux.largelyconjecture.com

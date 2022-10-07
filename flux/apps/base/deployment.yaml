@@ -15,10 +15,7 @@ spec:
   values:
     replicaCount: 2
     tls:
-      enabled: true
-      secretName: podinfo
-      certPath: /data/cert
-      port: 9899
+      enabled: false
     ingress:
       annotations:
         cert-manager.io/issuer: selfsigned
@@ -32,8 +29,4 @@ spec:
       hosts: []
       tls: []
     certificate:
-      create: true
-      issuerRef:
-        kind: Issuer
-        name: selfsigned
-      dnsNames: []
+      create: false
