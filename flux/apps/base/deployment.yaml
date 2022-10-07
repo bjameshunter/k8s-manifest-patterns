@@ -23,7 +23,7 @@ spec:
         secretName: cert-secret
         certPath: /data/cert
         port: 9899
-        hostPort:
+        hosts: []
     certificate:
       create: true
       issuerRef:

@@ -24,3 +24,9 @@ patches:
       path: /spec/values/certificate/dnsNames
       value: 
       - dev-flux.largelyconjecture.com
+    - op: add
+      path: /spec/values/ingress/tls
+      value:
+      - secretName: cert-secret
+        hosts: 
+        - dev-flux.largelyconjecture.com
