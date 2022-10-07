@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: dev-flux
 resources: 
   - ns.yaml
+  - external-dns.yaml
   - ../base/
 patchesStrategicMerge: 
-  - external-dns.yaml
   - sa.yaml
