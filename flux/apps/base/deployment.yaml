@@ -14,16 +14,16 @@ spec:
       interval: 1m
   values:
     replicaCount: 2
+    tls:
+      enabled: true
+      secretName: cert-secret
+      certPath: /data/cert
+      port: 9899
     ingress:
       className: alb
       enabled: true
       hosts: []
-      tls:
-        enabled: true
-        secretName: cert-secret
-        certPath: /data/cert
-        port: 9899
-        hosts: []
+      tls: []
     certificate:
       create: true
       issuerRef:
