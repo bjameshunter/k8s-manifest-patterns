@@ -16,7 +16,10 @@ patches:
     - op: add
       path: /spec/values/ingress/hosts
       value: 
-      - prod-flux.largelyconjecture.com
+      - host: prod-flux.largelyconjecture.com
+        paths:
+        - path: /
+          pathType: ImplementationSpecific
     - op: add
       path: /spec/values/certificate/dnsNames
       value: 
