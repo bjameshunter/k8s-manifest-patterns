@@ -6,4 +6,4 @@ spec:
   interval: 1m
   url: https://github.com/stefanprodan/podinfo
   ref:
-    tag: 6.1.0
+    tag: 6.2.1
