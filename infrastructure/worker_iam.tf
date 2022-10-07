@@ -24,6 +24,11 @@ resource "aws_iam_role_policy_attachment" "worker_role_basic" {
   role       = aws_iam_role.worker.name
 }
 
+resource "aws_iam_role_policy_attachment" "worker_acm" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSCertificateManagerFullAccess"
+  role       = aws_iam_role.worker.name
+}
+
 resource "aws_iam_role_policy_attachment" "worker_role_elb" {
   policy_arn = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
   role       = aws_iam_role.worker.name

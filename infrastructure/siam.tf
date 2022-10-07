@@ -31,9 +31,7 @@ resource "aws_iam_role" "external_dns_siam" {
 }
 
 resource "aws_iam_policy" "external_dns" {
-  for_each = toset(local.envs)
-
-  name        = "${var.name}-${each.value}-ext-dns"
+  name        = "${var.name}-ext-dns"
   path        = "/"
   description = "Allows pod to edit dns"
   policy      = templatefile("${path.module}/policies/external-dns.json", {
@@ -44,7 +42,7 @@ resource "aws_iam_policy" "external_dns" {
 resource "aws_iam_role_policy_attachment" "external_dns" {
   for_each = toset(local.envs)
 
-  policy_arn = aws_iam_policy.external_dns[each.value].arn
+  policy_arn = aws_iam_policy.external_dns.arn
   role       = aws_iam_role.external_dns_siam[each.value].name
 }
 

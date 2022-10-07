@@ -10,7 +10,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: external-dns
-  # namespace: dev-kpt # kpt-set: ${environment}-kpt
 rules:
 - apiGroups: [""]
   resources: ["services", "endpoints", "pods"]
@@ -25,7 +24,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: external-dns
+  name: dev-kpt-external-dns # kpt-set: ${environment}-kpt-external-dns
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

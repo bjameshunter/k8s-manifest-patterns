@@ -1,2 +1,3 @@
 infrastructure/.terraform*
 infrastructure/terraform.tfstate*
+prod-kpt/*

@@ -1,9 +1,12 @@
 #!/bin/bash
+# Set GIT_REPO (mine's https://github.com/bjameshunter/k8s-manifest-patterns.git)
+# Set GITHUB_TOKEN and GITHUB_USER to something that can read it.
+# Set AWS_PROFILE or let your session know who you are in AWS in some way.
+# Set CLUSTER_NAME to whatever you called it in Terraform
 
-GIT_REPO=https://github.com/bjameshunter/k8s-manifest-patterns.git
 ACCOUNT_ID=$(aws sts get-caller-identity | jq -r .Account)
 
-aws eks update-kubeconfig --name $1
+aws eks update-kubeconfig --name $CLUSTER_NAME
 
 cat >scripts/aws-load-balancer-controller-service-account.yaml <<EOF
 apiVersion: v1
@@ -15,14 +18,14 @@ metadata:
   name: aws-load-balancer-controller
   namespace: kube-system
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::${ACCOUNT_ID}:role/eks-$1-ingress
+    eks.amazonaws.com/role-arn: arn:aws:iam::${ACCOUNT_ID}:role/eks-$CLUSTER_NAME-ingress
 EOF
 
-kubectl apply -f scripts/aws-ingress-controller.yaml
-kubectl apply -f scripts/aws-load-balancer-controller-service-account.yaml
-kubectl apply -f scripts/v2_4_4_ingclass.yaml
-
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+
+kubectl apply -f scripts/aws-load-balancer-controller-service-account.yaml
+kubectl apply -f scripts/aws-ingress-controller.yaml
+kubectl apply -f scripts/v2_4_4_ingclass.yaml
 
 # install kpt crds
 kpt live install-resource-group
@@ -42,7 +45,7 @@ kubectl apply -k "../flux/clusters/base"
 flux create source git flux-system \
   --git-implementation=libgit2 \
   --url="$GIT_REPO" \
-  --username="bjameshunter@gmail.com" \
+  --username="$GITHUB_USER" \
   --password="$GITHUB_TOKEN" \
   --branch="main" \
   --interval=60s
