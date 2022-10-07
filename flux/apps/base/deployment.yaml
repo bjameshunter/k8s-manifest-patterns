@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: ./charts/podinfo
-      version: '6.2.1'
+      version: '6.1.0'
       sourceRef:
         kind: GitRepository
         name: podinfo
