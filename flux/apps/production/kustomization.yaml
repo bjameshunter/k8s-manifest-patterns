@@ -27,6 +27,6 @@ patches:
     - op: add
       path: /spec/values/ingress/tls
       value:
-      - secretName: cert-secret
+      - secretName: podinfo
         hosts: 
         - prod-flux.largelyconjecture.com

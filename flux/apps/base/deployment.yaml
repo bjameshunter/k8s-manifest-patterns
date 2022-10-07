@@ -16,7 +16,7 @@ spec:
     replicaCount: 2
     tls:
       enabled: true
-      secretName: cert-secret
+      secretName: podinfo
       certPath: /data/cert
       port: 9899
     ingress:
