@@ -18,9 +18,5 @@ patches:
       value: 
       - host: dev-flux.largelyconjecture.com
         paths:
-        - path: /*
+        - path: /
           pathType: ImplementationSpecific
-    - op: add
-      path: /spec/values/certificate/dnsNames
-      value: 
-      - dev-flux.largelyconjecture.com
