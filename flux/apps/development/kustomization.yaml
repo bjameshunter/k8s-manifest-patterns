@@ -3,8 +3,6 @@ kind: Kustomization
 namespace: dev-flux
 resources: 
   - ../base/
-# patchesStrategicMerge: 
-#   - images.yaml
 patches:
 - target:
     version: v2beta1
