@@ -18,5 +18,5 @@ patches:
       value: 
       - host: dev-flux.largelyconjecture.com
         paths:
-        - path: /
+        - path: /*
           pathType: ImplementationSpecific
