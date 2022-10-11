@@ -1,0 +1,19 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: the-app 
+  namespace: flux-system
+spec:
+  image: fintagcore.azurecr.io/the-app
+  interval: 1m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: the-app
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: the-app
+
+

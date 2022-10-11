@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: the-app
+spec:
+  values:
+    image:
+      tag: "1.1.0-PullRequest2453.8-4964" # {"$imagepolicy": "flux-system:the-app:tag"}
+
