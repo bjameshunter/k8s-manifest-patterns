@@ -1,16 +1,13 @@
 # Introduction
 
-- Who here has managed a Kubernetes cluster before?
-    - It's not going to change how or what I present, but I hear this is a good thing to know before presenting.
-
 # What is lame about normal CI/CD?
 
-Installing tools - helm and kubectl
-Configuring permissions for each stage of pipeline to talk to its cluster
-Configuring access to cloud platform
-Security considerations of lots of certs or whatever floating around there
-There is no visibility into the deployment without sending info back to CI/CD tool
-Tempting to put app configuration in repo with code
+- Installing tools - helm and kubectl
+- Configuring permissions for each stage of pipeline to talk to its cluster
+- Configuring access to cloud platform
+- Security considerations of lots of certs or whatever floating around there
+- No visibility into the deployment without sending info back to CI/CD tool
+- Tempting to put cluster configurations in app code repo 
 
 # Concepts for managing Kubernetes Configuration
 
@@ -22,6 +19,12 @@ Tempting to put app configuration in repo with code
 - `git commit` is _the_ method for making changes - audit, security, etc.
   - furthermore, any local `kubectl` commands just get clobbered when GitOps refreshes
 - Not a pipeline, but can be the "CD" part of it
+
+# Kustomize 
+
+- You are going to hate it at first
+  - forget to add files to `kustomization.yaml` 
+  - patches are still ugly, still repetitive between env configs
 
 # Common tasks 
 
@@ -35,7 +38,6 @@ Tempting to put app configuration in repo with code
   - can be configured with CRDs
   - `git revert`
 - Complete recreation of cluster for experiments or DR
-
 
 # What Our Deployments Will Do 
 
@@ -71,6 +73,7 @@ Lo malo
 - You will push YAML that won't compile or that violates KRM - up to you to hook in checks
 - Mentally compiling paths seems like something that is easy to do, but it gets complicated
   - "Where is such-and-such resource set?" is not always easy to answer
+- Strict `kustomize` had me inserting with patches an indexed list of drives b/c they were app-specific config maps or secrets that needed to be in init containers and I couldn't think of a clever way to do it with the Helm chart I had.
  
 Lo bueno
 
@@ -84,6 +87,10 @@ Lo bueno
 ## Argo
 
 - Envs handled w/ combo of branches and customize overlays
+- SyncPolicy and SyncOptions seems cool 
+  - create namesapce 
+  - self healing and pruning can be set, default is 3 minutes
+  - webhook option between git repo and ArgoCD
 
 Handles plain YAML, Helm Charts, and Kustomize
 Seems like image updates still happen via CI/CD, but Argo sucks them in 
@@ -95,6 +102,7 @@ Lo Bueno
 - What looks like a very comprehensive UI
 - CRDs `AppProject` and `Application`
     - define a cluster and group of applications
+- Seems easier to manage multiple clusters from a single cluster
 
 Sources: 
 
