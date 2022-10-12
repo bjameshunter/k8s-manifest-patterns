@@ -20,9 +20,9 @@ patches:
         paths:
         - path: /*
           pathType: ImplementationSpecific
-    - op: add
-      path: /spec/values/ui/color
-      value: blue
-    - op: add
-      path: /spec/values/ui/message
-      value: this is the dev deployment
+    # - op: add
+    #   path: /spec/values/ui/color
+    #   value: blue
+    # - op: add
+    #   path: /spec/values/ui/message
+    #   value: this is the dev deployment
