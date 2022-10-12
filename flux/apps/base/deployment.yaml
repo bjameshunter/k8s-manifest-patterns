@@ -13,6 +13,10 @@ spec:
         name: podinfo
       interval: 1m
   values:
+    ui:
+      color: "#34577c"
+      message: "Default Message"
+      logo: ""
     replicaCount: 2
     tls:
       enabled: false
